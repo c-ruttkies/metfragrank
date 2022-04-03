@@ -4,10 +4,10 @@ print_help () {
   # Display Help
   echo "Process MetFrag parameter files with MetFragCLI and produce ranking summary. Mount a directory (PARAMETERFOLDER) that"
   echo "contains a folder named 'parameters' inside the Docker container. This 'parameters' folder contains MetFrag parameter"
-  echo "files that need to be processed. After successful processing a 'results' and 'rankings' folder is created in the mounted"
+  echo "files that will be processed. After successful processing a 'results' and 'rankings' folder is created in the mounted"
   echo "directory."
   echo ""
-  echo "Use absolute paths in your parameter files (e.g. for 'PeakListPath', 'LocalDatabasePath' etc.). This paths must exists inside"
+  echo "Use absolute paths in your parameter files (e.g. for 'PeakListPath', 'LocalDatabasePath' etc.). These paths must exist inside"
   echo "the Docker container. Additional mounts (-v) might be required."
   echo ""
   echo "The run script in the Docker container will copy the parameter files and overwrite some settings such as 'MetFragCandidateWriter'."
