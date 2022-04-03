@@ -1,2 +1,2 @@
 # metfragrank
-Process MetFRag parameter files and calculate rank summary
+Process MetFrag parameter files and calculate rank summary
