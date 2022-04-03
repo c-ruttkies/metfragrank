@@ -88,7 +88,7 @@ metfrag_params_1.psv BSYNRYMUTXBXSQ 2 415 57010914|0 16 22 0.99758 1.0 413.0 Sco
 | `BSYNRYMUTXBXSQ`       | InChIKey of ranked candidate                    |
 | `2`                    | Pessimistic rank of candidate                   |
 | `415`                  | Total number of candidates                      |
-| `57010914|0`           | Database Identifier of candidate                |
+| `57010914\|0`          | Database Identifier of candidate (omit '\|0')   |
 | `16`                   | Number of explained peaks of correct candidate  |
 | `22`                   | Number of peaks used for assignment in peaklist |
 | `0.99758`              | Relative Ranking Position (RRP)                 |
