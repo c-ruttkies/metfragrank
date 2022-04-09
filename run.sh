@@ -43,7 +43,7 @@ export -f run_metfrag
 #
 # Example:
 #
-#  rank_metfrag "/metfrag/results/metfrag_result.psv" "BSYNRYMUTXBXSQ-UHFFFAOYSA-N" "/metfrag/rankings"
+#  rank_metfrag "/metfrag/results/metfrag_result.csv" "BSYNRYMUTXBXSQ-UHFFFAOYSA-N" "/metfrag/rankings"
 #
 rank_metfrag () {
   result_file=$1
@@ -53,10 +53,10 @@ rank_metfrag () {
   [ ! -f "${result_file}" ] && echo "result file ${result_file} not found. file will be skipped." && return 1
   [ ! -d "${rankings_folder}" ] && echo "rankings directory ${rankings_folder} not found" && return 1
   inchikey_1=$(echo $inchikey | cut -d"-" -f1)
-  ranking_file=$(basename ${result_file} | sed "s/.psv$//").txt
+  ranking_file=$(basename ${result_file} | sed "s/.csv$//").txt
   # calculate rank
   java -cp MetFragTools-2.4.8.jar:MetFragCommandLine-2.4.8.jar \
-	  de.ipbhalle.metfrag.ranking.GetRankOfCandidatePSV \
+	  de.ipbhalle.metfrag.ranking.GetRankOfCandidateCSV \
 	  "${result_file}" \
 	  InChIKey1=${inchikey_1} \
 	  Score=1.0 > "${rankings_folder}/${ranking_file}"
@@ -83,7 +83,7 @@ process_single_parameter_file () {
   starting_time=$(date +%s)
   run_metfrag "${parameter_file}"
   if [ "$?" -eq "0" ]; then
-    rank_metfrag "${root_folder}/results/${sample_name}.psv" "${inchikey}" "${root_folder}/rankings"
+    rank_metfrag "${root_folder}/results/${sample_name}.csv" "${inchikey}" "${root_folder}/rankings"
     ending_time=$(date +%s)
     echo "processing $(basename -- ${parameter_file}) finished in $(echo "${ending_time} - ${starting_time}" | bc) s"
   else
@@ -147,7 +147,7 @@ process_parameters () {
   sed -i "/^NumberThreads\s*=/d" /tmp/parameters/*
   # add parameters
   echo "ResultsPath = ${root_folder}/results" | tee -a /tmp/parameters/* > /dev/null
-  echo "MetFragCandidateWriter = PSV" | tee -a /tmp/parameters/* > /dev/null
+  echo "MetFragCandidateWriter = CSV" | tee -a /tmp/parameters/* > /dev/null
   echo "NumberThreads = 1" | tee -a /tmp/parameters/* > /dev/null
   # process parameter files
   find /tmp/parameters/ -maxdepth 1 -type f | parallel -I% -u --max-args 1 -j "${threads}" process_single_parameter_file % "${root_folder}"
