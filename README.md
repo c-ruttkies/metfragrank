@@ -42,7 +42,7 @@ metfrag_params_1.txt  metfrag_params_2.txt  metfrag_params_3.txt  metfrag_params
 - pass commandline option -p 'ROOT_FOLDER' 
 - ROOT_FOLDER is the folder visible inside the Docker container
 ```
-docker -v /data/metfrag:/metfrag run metfragrank -p /metfrag 
+docker run -v /data/metfrag:/metfrag metfragrank -p /metfrag 
 ```
 
 ### Additional data
@@ -53,7 +53,7 @@ docker -v /data/metfrag:/metfrag run metfragrank -p /metfrag
 grep PeakListPath /data/metfrag/metfrag_params_1.txt
 PeakListPath = /metfrag/peaklists/metfrag_peaklists_1.txt
 
-docker -v /data/metfrag:/metfrag -v /data/peaklists:/metfrag/peaklists run metfragrank -p /metfrag
+docker run -v /data/metfrag:/metfrag -v /data/peaklists:/metfrag/peaklists metfragrank -p /metfrag
 ```
 
 ### Help
