@@ -29,7 +29,7 @@ print_help () {
 run_metfrag () {
   parameter_file=$1
   echo "processing $(basename -- ${parameter_file})"
-  java -jar MetFragCommandLine-2.4.8.jar \
+  java -jar MetFragCommandLine.jar \
 	  "${parameter_file}" >> /dev/null
 }
 
@@ -55,7 +55,7 @@ rank_metfrag () {
   inchikey_1=$(echo $inchikey | cut -d"-" -f1)
   ranking_file=$(basename ${result_file} | sed "s/.csv$//").txt
   # calculate rank
-  java -cp MetFragTools-2.4.8.jar:MetFragCommandLine-2.4.8.jar \
+  java -cp MetFragTools.jar:MetFragCommandLine.jar \
 	  de.ipbhalle.metfrag.ranking.GetRankOfCandidateCSV \
 	  "${result_file}" \
 	  InChIKey1=${inchikey_1} \
@@ -135,7 +135,7 @@ process_parameters () {
   [ -n "$(find ${root_folder}/parameters -prune -empty 2>/dev/null)" ] && echo "No parameter files found in ${root_folder}/parameters directory." && exit 1
   [ -d "${root_folder}/results" ] && echo "Found a 'results' directory in ${root_folder} directory. Please remove it." && exit 1
   [ -d "${root_folder}/rankings" ] && echo "Found a 'rankings' directory in ${root_folder} directory. Please remove it." && exit 1
-  echo "$(find "${root_folder}/parameters" -maxdepth 1 -type f | wc -l) parameter file(s) will be processed" 
+  echo "$(find "${root_folder}/parameters" -maxdepth 1 -type f | wc -l) parameter file(s) will be processed"
   mkdir "${root_folder}/results" "${root_folder}/rankings"
   # copy parameters
   [ -d /tmp/parameters ] && rm -r /tmp/parameters
@@ -179,7 +179,7 @@ done
 
 if [ $OPTIND -eq 1 ]; then
 	printf "missing option\n\n"
-	print_help >&2; 
+	print_help >&2;
 fi
 
 [ -z ${folder} ] && echo "No directory defined" && exit 1
